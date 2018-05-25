@@ -3,11 +3,18 @@
 	margin: 0 0 20px;
 	border-bottom: 1px #000 solid;
 }
-.sideBar {
-	margin: 0 10px 0 0 ;
+#sideBar {
+	position: relative;
+	margin: 0 10px 0 0;
 	padding: 0;
 	float: left;
 	width: 150px;
+	list-style: none;
+}
+.sideBar {
+	margin: 0;
+	padding: 0;
+	width: 100%;
 	list-style: none;
 }
 .sideBar li {
@@ -21,6 +28,7 @@
 .todoItems {
 	position: relative;
 	margin: 0;
+	min-height: 400px;
 	padding: 0 0 0 20px;
 	overflow: hidden;
 	list-style: none;
@@ -136,14 +144,98 @@
 	position: absolute;
 	background: blue;
 }
-.num {
+ul li .num {
 	display: inline-block;
 	vertical-align: middle;
 	width: 20px;
 	color: #fff;
-	margin: 0 0 0 10px;
+	margin: 0 0 0 5px;
 	height: 20px;
 	text-align: center;
-	background: green;
+	background: red;
 	border-radius: 50%;
+}
+ul li li .num {
+	background: green;
+}
+
+
+/* Styles go here */
+.title {
+	color: navy;
+	text-align: center;
+}
+
+
+.calculator,
+.calculator__view,
+.calculator-button {
+	border: 1px solid gray;
+	border-radius: 3px;
+}
+
+.calculator {
+	width: 300px;
+	height: 350px;
+	padding: 15px;
+	box-sizing: border-box;
+	margin: 0 auto;
+}
+
+.calculator__view {
+	width: 270px;
+	height: 50px;
+	box-sizing: border-box;
+	padding: 15px;
+	margin-bottom: 5px;
+	font-size: 15px;
+	color: navy;
+}
+
+.calculator__buttons-holder {
+	display: flex;
+	flex-wrap: wrap;
+	width: 270px;
+	height: 200px;
+	justify-content: space-between;
+}
+
+.calculator-button {
+	position:relative;
+	font-family: 'Open Sans', sans-serif;
+	font-size:12px;
+	text-decoration:none;
+	color:#fff;
+	background-image: linear-gradient(bottom, rgb(100,170,30) 0%, rgb(129,212,51) 100%);
+	box-shadow: inset 0px 1px 0px #b2f17f, 0px 6px 0px #3d6f0d;
+	border-radius: 5px;
+	width: 45px;
+	height: 45px;
+	margin: 10px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: lightblue;
+	font-weight: 600;
+	cursor: pointer;
+}
+.calculator-button:active {
+	top:7px;
+	background-image: linear-gradient(bottom, rgb(100,170,30) 100%, rgb(129,212,51) 0%);
+	box-shadow: inset 0px 1px 0px #b2f17f, inset 0px -1px 0px #3d6f0d;
+	color: #156785;
+	text-shadow: 0px 1px 1px rgba(255,255,255,0.3);
+	background: rgb(44,160,202);
+}
+
+.action {
+	background: lightgreen;
+}
+
+.reset {
+	background: orange;
+}
+
+.equal {
+	background: yellow;
 }

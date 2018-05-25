@@ -17,8 +17,6 @@ const todos = {
     5: {id: 5, text: 'task 2', done: false, categoryId: 5},
     6: {id: 6, text: 'task 3', done: false, categoryId: 6},
     7: {id: 7, text: 'task 4', done: false, categoryId: 7},
-    9: {id: 9, text: 'task 222', done: false, categoryId: 8},
-    10: {id: 10, text: 'task 22fgdd2', done: false, categoryId: 8},
 };
 
 const categories = {
@@ -28,8 +26,7 @@ const categories = {
     4: {id: 4, name: 'Блабла 1', parentId: 1},
     5: {id: 5, name: 'Блабла 1', parentId: 2},
     6: {id: 6, name: 'Блабла 2', parentId: 2},
-    7: {id: 7, name: 'Блабла 1', parentId: 3},
-    8: {id: 8, name: 'Блабла 3', parentId: 2},
+    7: {id: 7, name: 'Блабла 1', parentId: 3}
 };
 
 class TodoApp extends Component {
@@ -80,20 +77,26 @@ class TodoApp extends Component {
         });
     }
 
+    createListNumber(str, numberSeporator){
 
+        str = str.split(numberSeporator);
+        if(str.length === 0) return;
+        str[str.length-1] =+ str[str.length - 1] + 1;
+        return str.join('.');
+    }
 
-     getContent = () => (
-        <Content
-            todos={ this.state.todos }
-            toggleDone={ this.toggleDone }
-            saveItem={ this.saveItem }
-            deleteItem={ this.deleteItem }
-            categoryId={ this.state.selectedCat }
-        />
-    );
+    getContent() {
+        return  <Content todos={ this.state.todos }
+                             toggleDone={ this.toggleDone }
+                             saveItem={ this.saveItem }
+                            deleteItem={ this.deleteItem }
+                            categoryId={ this.state.selectedCat }
+                    />
+    }
 
-    getNum = (selectedCat, todos) => {
-    	const filtered = filter(todos, item => { console.log(item); return item.categoryId ===  selectedCat });
+    getNum() {
+    	const dd = this.state.selectedCat
+    	const filtered = filter(todos, item => item.dd ===  this.state.selectedCat);
    		return filtered.length;
     }
 
@@ -108,20 +111,19 @@ class TodoApp extends Component {
             categoryId: this.state.selectedCat,
             Content: this.getContent
         };
-        const { categories, todos } = this.state;
+
 
         return (
             <Fragment>
                 <div className="wr">
-                    <Header todos={ todos } />
-                    <Sidebar
-                        categories={ categories }
-                        parentId={ null }
-                        getNum = {this.getNum}
-                        todos={ todos }
-                        selectCat={ this.selectCat }
-                    />
-                    <Main { ...params } />
+                    <Header todos={ this.state.todos }/>
+                    <Sidebar categories={ this.state.categories }
+                             parentId={ null }
+                             getNum = {this.getNum}
+                             createListNumber = {this.createListNumber}
+                             todos={ this.state.todos }
+                             selectCat={ this.selectCat }/>
+                    <Main { ...params }/>
                 </div>
             </Fragment>
         );
