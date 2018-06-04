@@ -1,12 +1,15 @@
-import React, {Component, PureComponent, Fragment} from 'react';
+import React, {Component, Fragment} from 'react';
 import { Content } from '../content';
 import { map, filter} from 'lodash';
 import { Route, Link, NavLink, Switch } from 'react-router-dom';
 import { Sidebar } from '../sidebar';
 import { Header } from '../header';
+import { contentConnector } from '../content/connector';
 import classnames from 'classnames';
 
 // import PropTypes from 'prop-types';
+
+const MyContent = contentConnector(Content);
 
 const todos = {
     1: {id: 1, text: 'Выучить реакт', info: 'Подробное описание', done: true,  categoryId: 1},
@@ -37,23 +40,23 @@ class TodoApp extends Component {
             categories,
             selectedCat: 1
         };
-        this.toggleDone = this.toggleDone.bind(this);
+        // this.toggleDone = this.toggleDone.bind(this);
         this.deleteItem = this.deleteItem.bind(this);
         this.saveItem = this.saveItem.bind(this);
         this.selectCat = this.selectCat.bind(this);
         this.getContent = this.getContent.bind(this);
     }
 
-    toggleDone(id) {
-        const updatedItem = Object.assign(
-            {}, this.state.todos[id], {done: !this.state.todos[id].done}
-        );
+    // toggleDone(id) {
+    //     const updatedItem = Object.assign(
+    //         {}, this.state.todos[id], {done: !this.state.todos[id].done}
+    //     );
 
-        this.setState({
-            todos: Object.assign({}, this.state.todos, { [id]: updatedItem })
-        });
-        return updatedItem.done;
-    }
+    //     this.setState({
+    //         todos: Object.assign({}, this.state.todos, { [id]: updatedItem })
+    //     });
+    //     return updatedItem.done;
+    // }
 
      selectCat(id) {
         this.setState({
@@ -85,7 +88,7 @@ class TodoApp extends Component {
         return str.join('.');
     }
 
-    getContent() {
+     getContent() {
         return  <Content todos={ this.state.todos }
                              toggleDone={ this.toggleDone }
                              saveItem={ this.saveItem }
@@ -123,7 +126,9 @@ class TodoApp extends Component {
                              createListNumber = {this.createListNumber}
                              todos={ this.state.todos }
                              selectCat={ this.selectCat }/>
-                    <Main { ...params }/>
+                  {/*  <Main { ...params }/>*/}
+                    <MyContent { ...params }/>
+                  {/* <Content { ...params }/ >*/}
                 </div>
             </Fragment>
         );
@@ -131,14 +136,14 @@ class TodoApp extends Component {
 }
 
 
-function Main(props) {
-    return (
-        <Switch>
-        	<Route path="/" exact component={ props.Content }/>
-            <Route path={`/items/${props.categoryId}/`} exact component={ props.Content }/>
-        </Switch>
-    );
-}
+// function Main(props) {
+//     return (
+//         <Switch>
+//         	<Route path="/" exact component={ props.Content }/>
+//             <Route path={`/items/${props.categoryId}/`} exact component={ props.Content }/>
+//         </Switch>
+//     );
+// }
 
 
 

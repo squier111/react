@@ -26,7 +26,7 @@ export class TodoItem extends PureComponent {
 
     render() {
         const { editMode } = this.state;
-        const { toggleMode } = this;
+        const { toggleMode, deleteItem } = this;
 
         return (
             <li>
@@ -36,7 +36,7 @@ export class TodoItem extends PureComponent {
                                     toggleMode={ toggleMode }/>
                         : <Item { ...this.props }
                                 toggleMode={ toggleMode }
-                                deleteItem={ this.deleteItem }
+                                deleteItem={ deleteItem }
                                 />
                 }
             </li>
@@ -56,7 +56,7 @@ const Item = ({ item, toggleDone, toggleMode ,  deleteItem  }) => (
         ? <Fragment><span className="info">{ item.info }</span>
             <div className="btnHolder">
                 <button onClick={ toggleMode }>Edit</button>
-                <button onClick={ deleteItem }>Delete</button>
+                <button onClick={ () => deleteItem(item.id) }>Delete</button>
             </div></Fragment>
         : <span  className="done">Готово!</span>
         }
@@ -114,10 +114,10 @@ class EditItem2 extends Component {
                 />
                     <textarea className="textarea"
                         value={ this.state.info }
-                     onChange={ this.changeInfo}
+                        onChange={ this.changeInfo}
                      />
                      <div className="btnHolder">
-                         <button onClick={ this.onSave }>Save</button>
+                         <button onClick={ () => { this.props.saveTodo(); } }>Save</button>
                          <button onClick={ toggleMode }>Cancel</button>
                      </div>
             </Fragment>
@@ -125,34 +125,3 @@ class EditItem2 extends Component {
     }
 }
 
-
-// const EditItem = ({ item, saveItem, toggleMode }) => {
-//     let textField = null;
-//     let infoField = null;
-
-//     const onSave = () => {
-//         const { id } = item;
-//         const text = textField.value;
-//         const info = infoField.value;
-
-//         saveItem(id, text, info);
-//         toggleMode();
-//     };
-
-//     return (
-//         <Fragment>
-//             <input className="input" type="text"
-//                    ref={ input => { textField = input; } }
-//                    defaultValue={ item.text }
-//             />
-//             <textarea className="textarea"
-//             defaultValue={ item.info }
-//             ref={ textarea => { infoField = textarea; } }
-//             ></textarea>
-//             <div className="btnHolder">
-//                 <button onClick={ onSave }>Save</button>
-//                 <button onClick={ toggleMode }>Cancel</button>
-//              </div>
-//         </Fragment>
-//     );
-// };
